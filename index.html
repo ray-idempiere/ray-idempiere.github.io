@@ -1,16 +1,348 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ray Lee | iDempiere ERP 資深系統分析師</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        /* ====================================
+           基本重置與通用樣式
+           ==================================== */
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            margin: 0;
+            padding-top: 60px; /* 為了固定導覽列留出空間 */
+            color: #333;
+            background-color: #fff;
+            scroll-behavior: smooth; /* 實現平滑滾動 */
+        }
+        
+        h1, h2, h3 {
+            color: #1a1a1a;
+            font-weight: 700;
+        }
+
+        .section {
+            padding: 80px 5%; /* 確保區塊有足夠的內邊距 */
+            text-align: center;
+        }
+
+        /* 內容容器，限制最大寬度以提高可讀性 */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* ====================================
+           導覽列 (Navigation) 
+           ==================================== */
+        .navbar {
+            background-color: #333;
+            color: white;
+            padding: 15px 5%;
+            position: fixed; /* 固定在頂部 */
+            top: 0;
+            left: 0;
+            width: 90%;
+            z-index: 1000; /* 確保它在最上層 */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 0 15px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .navbar a:hover {
+            color: #4CAF50; /* 懸停效果使用 iDempiere 相關的綠色 */
+        }
+
+        .logo {
+            font-size: 1.5em;
+            font-weight: 700;
+        }
+
+        /* ====================================
+           英雄區 (Hero) 
+           ==================================== */
+        #hero {
+            background-color: #e9ecef;
+            padding: 150px 5% 100px;
+        }
+        
+        .profile-photo {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%; /* 圓形頭像 */
+            object-fit: cover;
+            margin-bottom: 20px;
+            border: 5px solid #4CAF50; /* 增加品牌色邊框 */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #hero h1 {
+            font-size: 2.8em;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        #hero h2 {
+            font-size: 1.5em;
+            color: #666;
+            font-weight: 400;
+        }
+
+        /* ====================================
+           關於我 (About) 
+           ==================================== */
+        #about {
+            background-color: #fff;
+            text-align: left;
+        }
+
+        #about p {
+            line-height: 1.8;
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+        
+        /* ====================================
+           專業能力 (Skills) 
+           ==================================== */
+        #skills {
+            background-color: #f8f9fa;
+        }
+        
+        .skills-grid {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .skill-item {
+            width: 200px;
+            margin: 20px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+        
+        .skill-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .skill-item i {
+            font-size: 2.5em;
+            color: #4CAF50;
+            margin-bottom: 15px;
+        }
+
+        /* ====================================
+           資歷與成就 (Experience) 
+           ==================================== */
+        #experience {
+            text-align: left;
+        }
+        
+        .experience-item {
+            margin-bottom: 40px;
+            border-left: 3px solid #4CAF50;
+            padding-left: 20px;
+        }
+
+        .experience-item h3 {
+            margin-top: 0;
+            color: #4CAF50;
+        }
+        
+        .experience-item p {
+            margin: 5px 0;
+        }
+        
+        /* ====================================
+           聯繫我 (Contact) 
+           ==================================== */
+        #contact {
+            background-color: #333;
+            color: white;
+            padding-bottom: 30px; /* 留給 Footer */
+        }
+        
+        #contact h2 {
+            color: white;
+        }
+
+        .contact-info p {
+            font-size: 1.1em;
+            margin: 15px 0;
+        }
+
+        .contact-info a {
+            color: #4CAF50;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .contact-info a:hover {
+            color: white;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+
+        .cta-button:hover {
+            background-color: #5cb85c;
+        }
+        
+        /* ====================================
+           響應式設計 (Responsive Design) 
+           ==================================== */
+        @media (max-width: 768px) {
+            .navbar {
+                justify-content: center;
+            }
+            .navbar .nav-links {
+                display: none; /* 在小螢幕上隱藏導覽連結，可以考慮使用漢堡選單取代 */
+            }
+            .navbar .logo {
+                display: block;
+            }
+            #hero h1 {
+                font-size: 2em;
+            }
+            #hero h2 {
+                font-size: 1.2em;
+            }
+            .skills-grid {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Hello, I'm Ray!</h1>
-    <img alt="Ray Lee" src="https://wiki.idempiere.org/w-en/images/0/0b/Ray_Lee.jpg" decoding="async" width="192" height="192" class="thumbimage">
-	I am a senior system analyst, as well as a contributor to iDempiere ERP and a financial management consultant for the Small and Medium Enterprise Administration of the Ministry of Economic Affairs.
 
-I have extensive experience in system analysis and development and a deep understanding of the design and implementation of ERP systems.
+    <header class="navbar">
+        <div class="logo">Ray Lee</div>
+        <nav class="nav-links">
+            <a href="#about">關於我</a>
+            <a href="#skills">專業能力</a>
+            <a href="#experience">資歷</a>
+            <a href="#contact">聯繫我</a>
+        </nav>
+    </header>
 
-As a contributor to iDempiere ERP, I actively participate in the development and contribution of the project. This allows me to have a deep understanding of the operating principles and best practices of ERP systems, as well as to communicate and learn from other contributors.
+    <section id="hero" class="section">
+        <div class="container">
+            <img src="https://wiki.idempiere.org/w-en/images/0/0b/Ray_Lee.jpg" alt="Ray Lee - Profile Photo" class="profile-photo">
+            <h1>Hello, I'm Ray!</h1>
+            <h2>iDempiere ERP 資深系統分析師 / 企業財務管理顧問</h2>
+            <p>熱衷於系統分析與開發，致力於透過專業知識，為企業創造長期價值。</p>
+            <a href="#contact" class="cta-button">立即洽談合作</a>
+        </div>
+    </section>
 
-In addition, as a financial management consultant for the Small and Medium Enterprise Administration of the Ministry of Economic Affairs, I am committed to helping small and medium-sized enterprises achieve best practices in financial management. Through my advice and guidance, enterprises can better grasp the key points of financial management and achieve long-term development goals.
+    <section id="about" class="section">
+        <div class="container">
+            <h2>關於 Ray Lee</h2>
+            <p>作為一位資深系統分析師，我擁有系統開發與 ERP 實施的豐富實戰經驗。我深知 ERP 系統的設計原理與最佳實踐，並將此知識應用於協助企業流程優化。</p>
+            <p>我是 iDempiere ERP 的一位核心貢獻者，積極參與專案的開發與社群交流。這使我能夠與全球的貢獻者溝通學習，確保我對 ERP 系統的前沿發展有深入的理解。</p>
+            <p>同時，我亦擔任經濟部中小企業處的財務管理顧問，致力於協助中小企業建立、實施與達到最佳的財務管理實踐，以實現其長遠發展目標。</p>
+        </div>
+    </section>
 
-Overall, I am very passionate about my work and have a strong interest in the field of system analysis and development. I look forward to working with more people in the future, continuously learning and growing.
-    <p>This is my personal one-page website, hosted for free on GitHub Pages.</p>
-    <p>Check out my code on <a href="https://github.com/ray-idempiere">GitHub</a>.</p>
+    <section id="skills" class="section">
+        <div class="container">
+            <h2>我的專業能力</h2>
+            <div class="skills-grid">
+                
+                <div class="skill-item">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>系統分析與設計</h3>
+                    <p>精準捕捉業務需求，轉化為高效穩定的系統架構。</p>
+                </div>
+                
+                <div class="skill-item">
+                    <i class="fas fa-code-branch"></i>
+                    <h3>iDempiere ERP 實戰</h3>
+                    <p>深入理解 iDempiere 原理，具備開發與維護能力。</p>
+                </div>
+                
+                <div class="skill-item">
+                    <i class="fas fa-cogs"></i>
+                    <h3>ERP 系統實施</h3>
+                    <p>規劃、部署和導入企業資源規劃系統的豐富經驗。</p>
+                </div>
+                
+                <div class="skill-item">
+                    <i class="fas fa-dollar-sign"></i>
+                    <h3>財務管理顧問</h3>
+                    <p>協助中小企業實現財務流程透明化與最佳化。</p>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <section id="experience" class="section">
+        <div class="container">
+            <h2>專業資歷</h2>
+            
+            <div class="experience-item">
+                <h3>iDempiere ERP 核心貢獻者</h3>
+                <p><strong>角色：</strong>資深系統分析師與開發者</p>
+                <p><strong>成就：</strong>積極參與 iDempiere 社群開發，貢獻代碼與知識，與全球開源者協作，推動專案進展。</p>
+            </div>
+
+            <div class="experience-item">
+                <h3>經濟部中小企業處 財務管理顧問</h3>
+                <p><strong>角色：</strong>特聘財務管理顧問</p>
+                <p><strong>成就：</strong>為多家中小企業提供專業諮詢和指導，協助其建立健全的財務體系和長遠發展策略。</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section">
+        <div class="container">
+            <h2>聯繫 Ray</h2>
+            <p>期待與您在系統分析、ERP 實施或企業財務管理方面進行合作或交流。</p>
+            
+            <div class="contact-info">
+                <p>
+                    <i class="fas fa-envelope"></i> 
+                    Email: <a href="mailto:ray-idempiere@gmail.com">ray-idempiere@gmail.com</a>
+                </p>
+                <p>
+                    <i class="fab fa-github"></i> 
+                    代碼與專案：<a href="https://github.com/ray-idempiere" target="_blank">GitHub/ray-idempiere</a>
+                </p>
+            </div>
+        </div>
+        
+        <footer style="margin-top: 50px; font-size: 0.9em; border-top: 1px solid #444; padding-top: 20px;">
+            <p>&copy; 2025 Ray Lee. All Rights Reserved.</p>
+        </footer>
+    </section>
+
 </body>
+</html>
